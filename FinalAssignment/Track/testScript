@@ -1,0 +1,46 @@
+
+label "find_guidemark"
+stringcat "findroute startx= 0.5 starty = 0.5 endx = 1.75 " "endy = 4"
+laser "$string"
+wait 2
+n = $l4
+
+label "guidemark"
+
+stringcat "getpoint p=" n-1
+laser "$string"
+wait 2
+
+x = $l5 
+y = $l6
+theta = $l7
+eval x
+eval y
+n = n-1
+
+xdiff = x - $odox 
+ydiff = y - $odoy
+thetadiff = theta - $odoth
+
+turn thetadiff
+
+
+%drive xdiff ydiff thetadiff : ($targetdist < 0.05)
+
+stop
+wait 1
+
+if (n>=0) "guidemark" 
+
+
+%wait 10 : ($l5 != x & $l6 != y & $l7 != theta)
+
+%x = $l5 
+%y = $l6
+%theta = $l7
+
+eval x
+eval y
+eval theta
+
+
