@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<!--
+   Configuration file for
+    Simulator Server 
+--> 
+ 
+<simserver>
+   <!-- *** Core Components Configuration *** -->
+   <!-- Sheduler configuration --> 
+  <scheduler> 
+    <period value="10000"/><!--in usec--> 
+  </scheduler> 
+  
+  <!-- Simulator configuration --> 
+  <simstage> 
+    <world wallmap="388finalrand" linemap="" scale="150" yoff="775"/>
+  1.000000 <guidemark  gmno=" 0.000000 " gmpose=" 0.000000 1.500000 3.140000 "/>
+ 2.000000 <guidemark  gmno=" 3.000000 " gmpose=" 0.000000 1.500000 0.000000 "/>
+ 3.000000 <guidemark  gmno=" 4.000000 " gmpose=" 4.000000 1.500000 3.140000 "/>
+ 4.000000 <guidemark  gmno=" 12.000000 " gmpose=" 4.000000 1.500000 0.000000 "/>
+ 5.000000 <guidemark  gmno=" 0.000000 " gmpose=" 0.000000 3.500000 3.140000 "/>
+ 6.000000 <guidemark  gmno=" 0.000000 " gmpose=" 0.000000 3.500000 0.000000 "/>
+ 7.000000 <guidemark  gmno=" 0.000000 " gmpose=" 4.000000 3.500000 3.140000 "/>
+ 8.000000 <guidemark  gmno=" 0.000000 " gmpose=" 4.000000 3.500000 0.000000 "/>
+ 9.000000 <guidemark  gmno=" 14.000000 " gmpose=" 0.000000 4.500000 0.000000 "/>
+ 10.000000 <guidemark  gmno=" 9.000000 " gmpose=" 4.000000 4.500000 3.140000 "/>
+ 11.000000 <guidemark  gmno=" 0.000000 " gmpose=" 0.500000 5.000000 -1.570000 "/>
+ 12.000000 <guidemark  gmno=" 10.000000 " gmpose=" 3.500000 5.000000 -1.570000 "/>
+ 13.000000 <guidemark  gmno=" 98.000000 " gmpose=" 2.000000 4.000000 3.140000 "/>
+ 14.000000 <guidemark  gmno=" 98.000000 " gmpose=" 2.000000 4.000000 0.000000 "/>
+</simstage> 
+ <!-- Robot server no. 0 -->
+ <robot>
+   <mrcserver port="8000"/>
+   <clients number="5"/>
+   <params name="smr0" robotpose="0.3 0.3 0.0" wheelbase="0.26" encresolution="0.00010245"/> 
+     <corner x="-0.1" y="-0.15"/>
+   <corner x="0.25" y="-0.15"/>
+   <corner x="0.25" y="0.15"/>
+   <corner x="-0.1" y="0.15"/>
+   <irsensor ka="16.0" kb="76.0"/>
+   <laserscanner port="19001" laserpose="0.26 0.0 0.0"/>
+ </robot>
