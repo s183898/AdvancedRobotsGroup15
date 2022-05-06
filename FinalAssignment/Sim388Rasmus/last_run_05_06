@@ -1,0 +1,159 @@
+array "markX" 14
+array "markY" 14
+array "markTh" 14
+
+pi = 3.1415926
+
+markX[0]=0.0
+markX[1]=0.0
+markX[2]=4.0
+markX[3]=4.0
+markX[4]=0.0
+markX[5]=0.0
+markX[6]=4.0
+markX[7]=4.0
+markX[8]=0.0
+markX[9]=4.0
+markX[10]=0.5
+markX[11]=3.5
+markX[12]=2.0
+markX[13]=2.0
+
+markY[0]=1.5 
+markY[1]=1.5
+markY[2]=1.5
+markY[3]=1.5
+markY[4]=3.5
+markY[5]=3.5
+markY[6]=3.5
+markY[7]=3.5
+markY[8]=4.5
+markY[9]=4.5
+markY[10]=5.0
+markY[11]=5.0
+markY[12]=4.0
+markY[13]=4.0
+
+markTh[0]=3.14
+markTh[1]=0
+markTh[2]=3.14
+markTh[3]=0
+markTh[4]=3.14
+markTh[5]=0
+markTh[6]=3.14
+markTh[7]=0
+markTh[8]=0
+markTh[9]=3.14
+markTh[10]=-1.57
+markTh[11]=-1.57
+markTh[12]=3.14
+markTh[13]=0
+
+set "$odox" 0.5
+set "$odoy" 0.5
+set "$odoth" 0
+
+eval $odox
+eval $odoy
+
+start = 1
+
+endx = markX[0]
+endy = markY[0]
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% route to guidemark %%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+label "findGuidemark"
+
+wait 1
+
+startx = $odox
+starty = $odoy
+
+if (start == 1) "skipMark"
+endx = markX[$fiducialid-1]
+endy = markY[$fiducialid-1]
+label "skipMark"
+
+start = 0
+
+stringcat "findroute startx= "startx" starty = "starty" endx = "endx" endy = "endy""
+
+laser "$string"
+wait 1
+
+n = $l4
+
+%%%%%%%%%%%%%%%%%%%
+%% move to point %%
+%%%%%%%%%%%%%%%%%%%
+
+label "move2next"
+
+stringcat "getpoint p=" n-1
+laser "$string"
+wait 1
+x = $l5 
+y = $l6
+theta = $l7
+eval x
+eval y
+
+n = n-1
+
+X = $odox - x
+Y = $odoy - y
+
+eval X
+eval Y
+
+distance = sqrt(X*X+Y*Y)
+
+gamma = atan2(Y,X)
+
+eval gamma
+eval $odoth
+
+alpha = (-$odoth+gamma)-pi
+
+alpha = normalizeanglerad(alpha)
+
+ignoreobstacles
+%if (angle < 0.05) "skipTurn"
+turn alpha "rad"
+%label "skipTurn"
+
+%if (distance < 0.005) "skipFwd"
+ignoreobstacles
+drive X Y theta "rad" : ($targetdist <0.05)
+%fwd distance : ($targetdist <0.05)
+%label "skipFwd"
+
+
+beta = (theta-$odoth)
+beta = normalizeanglerad(beta)
+% turn beta "rad"
+
+eval n
+
+if (n>=0) "move2next"
+
+%%%%%%%%%%%%%%%%%%%%%
+%% look for marker %%
+%%%%%%%%%%%%%%%%%%%%%
+
+label "look4mark"
+
+eval $fiducialid
+
+
+if ($fiducialid != -1 ) "findGuidemark"
+
+turn -90
+
+if ($fiducialid == -1) "look4mark" 
+
+eval $fiducialid
+
