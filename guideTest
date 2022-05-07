@@ -4,6 +4,8 @@ array "markTh" 14
 
 pi = 3.1415926
 
+%test 
+
 markX[0]=0.0
 markX[1]=0.0
 markX[2]=4.0
