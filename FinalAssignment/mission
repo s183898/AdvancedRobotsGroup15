@@ -1,17 +1,33 @@
 array "markX" 14
 array "markY" 14
 array "markTh" 14
+array "gX" 14
 
 pi = 3.1415926
 
-markX[0]=0.0
-markX[1]=0.0
-markX[2]=4.0
-markX[3]=4.0
-markX[4]=0.0
-markX[5]=0.0
-markX[6]=4.0
-markX[7]=4.0
+gX[0]=0.0
+gX[1]=0.0
+gX[2]=4.0
+gX[3]=4.0
+gX[4]=0.0
+gX[5]=0.0
+gX[6]=4.0
+gX[7]=4.0
+gX[8]=0.0
+gX[9]=4.0
+gX[10]=0.5
+gX[11]=3.5
+gX[12]=2.0
+gX[13]=2.0
+
+markX[0]=-0.5
+markX[1]=0.5
+markX[2]=3.5
+markX[3]=4.5
+markX[4]=-0.5
+markX[5]=0.5
+markX[6]=3.5
+markX[7]=4.5
 markX[8]=0.0
 markX[9]=4.0
 markX[10]=0.5
@@ -44,9 +60,10 @@ eval $odoy
 start = 1
 
 endx = markX[0]
+endg = gX[0]
 endy = markY[0]
-startx = 1.2
-starty = 1.2
+startx = 0.3
+starty = 0.3
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %% route to guidemark %%
@@ -59,6 +76,7 @@ wait 1
 if (start == 1) "skipMark"
 endx = markX[$fiducialid-1]
 endy = markY[$fiducialid-1]
+endg = gX[$fiducialid-1]
 startx = $odox
 starty = $odoy
 label "skipMark"
@@ -126,7 +144,7 @@ if (n>=0) "move2next"
 
 wait 1 
 
-X = $odox - endx
+X = $odox - endg
 Y = $odoy - endy
 
 eval X
