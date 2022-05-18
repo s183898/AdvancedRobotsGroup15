@@ -6,11 +6,10 @@ y = points(2,:);
 n = length(points);
 
 sumx = sum(x);
-sxsquared = sumsqr(x);
+sxsquared = x*x';
 
 sumy = sum(y);
-sysquared = sumsqr(y);
-
+sysquared = y*y';
 sumxy = x*y';
 
 xh = mean(x);
@@ -19,7 +18,7 @@ yh = mean(y);
 num = (2*sumx*sumy - 2*n*sumxy);
 denum = sumx^2 - sumy^2 - n*sxsquared + n*sysquared;
 
-alpha = atan2(num,denum)/2;
+alpha = (atan2(num,denum))/2;
 
 r = xh*cos(alpha) + yh*sin(alpha);
 
